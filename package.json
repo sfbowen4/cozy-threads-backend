@@ -1,0 +1,26 @@
+{
+  "name": "cozy-threads-backend",
+  "version": "1.0.0",
+  "description": "The backend for cozy threads written in node",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app",
+    "dev": "nodemon app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sfbowen4/cozy-threads-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sfbowen4/cozy-threads-backend/issues"
+  },
+  "homepage": "https://github.com/sfbowen4/cozy-threads-backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "stripe": "^17.6.0"
+  }
+}
