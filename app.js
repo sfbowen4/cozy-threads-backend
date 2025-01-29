@@ -3,9 +3,11 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const app = express();
-app.use(express.json());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({policy: "cross-origin"}));
 app.use(morgan("common"));
@@ -13,7 +15,7 @@ app.use(bodyParser.json({limit: "30mb", extended: true}));
 app.use(cors());
 
 // This is your test secret API key.
-const stripe = require("stripe")('sk_test_51Qm88ER2BhZW0JUn8B2heO63rfQ05m2NUXt2JUab0uxG6Tx2SM5WX2IUlLAAtciPCDUjMKiuKBC1NVjf5nlcEF7b00pM82ctqI');
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 app.use(express.static("public"));
 
@@ -29,6 +31,7 @@ const calculateOrderAmount = (items) => {
 
 app.post("/create-payment-intent", async (req, res) => {
   const { items } = req.body;
+  console.log(items);
 
   // Create a PaymentIntent with the order amount and currency
   const paymentIntent = await stripe.paymentIntents.create({
@@ -46,4 +49,4 @@ app.post("/create-payment-intent", async (req, res) => {
 });
 
 
-app.listen(4242, () => console.log("Node server listening on port 4242!"));
+app.listen(process.env.PORT || 8080, () => console.log("Node server listening on port 4242!"));
